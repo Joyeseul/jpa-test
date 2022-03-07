@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2">
+    <persistence-unit name="hello">
+        <properties>
+
+            <!-- 필수 속성 -->
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+
+            <!-- 옵션 -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+
+            <!-- 데이터베이스 스키마 자동 생성하기 -->
+            <!-- create : 기존 테이블 삭제 후 다시 생성(DROP + CREATE) -->
+            <!-- create-drop : create 와 같으나, 종료 시점에 DROP. test 코드를 짤 때 도움 됨 -->
+            <!-- update : 변경분만 반영됨. (운영 DB 에는 사용하면 안됨) 근데 운영에서는 장애가 뜸. 아니면 Lock 이 걸린다. -->
+            <!-- validate : 엔티티와 테이블이 정상매핑되었는지만 확인 -->
+            <!-- none : 사용하지 않음 -->
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+        </properties>
+    </persistence-unit>
+</persistence>
