@@ -16,6 +16,9 @@ public class Member {
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
 
+//    @Enumerated(EnumType.STRING)
+//    private MemberType memberType;
+
     @ManyToOne(fetch = FetchType.LAZY)          //지연로딩. team 객체를 나중에 받아오고 싶으면 fetch = lazy로 설정하면 됨.
     @JoinColumn(name = "TEAM_ID")
     private Team team;
