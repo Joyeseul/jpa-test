@@ -9,27 +9,27 @@ public class Member {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "USERNAME", nullable = false, length = 20)
+    @Column(name = "USERNAME")
     private String name;
     private int age;
 
-    //@Enumerated(EnumType.ORDINAL)     //ORDINAL 이면 순번이 들어가고, 나중에 그 순번의 변경이 생기면 에러남
-    @Enumerated(EnumType.STRING)        //따라서 무조건 STRING 으로 넣어야 함
-    private MemberType memberType;
+//    @Column(name = "TEAM_ID")
+//    private Long teamId;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date regDate;
+    @ManyToOne(fetch = FetchType.LAZY)          //지연로딩. team 객체를 나중에 받아오고 싶으면 fetch = lazy로 설정하면 됨.
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
@@ -44,19 +44,21 @@ public class Member {
         this.age = age;
     }
 
-    public MemberType getMemberType() {
-        return memberType;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setMemberType(MemberType memberType) {
-        this.memberType = memberType;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
-    public Date getRegDate() {
-        return regDate;
-    }
-
-    public void setRegDate(Date regDate) {
-        this.regDate = regDate;
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", team=" + team +
+                '}';
     }
 }
