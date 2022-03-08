@@ -26,14 +26,12 @@ public class Main04_Mapping {
 
             /* 회원 등록 */
             Member member = new Member();
-            member.setName("member1");
+            member.setName("hello");
             em.persist(member);
 
+            /* 객체끼리 mapping 을 시켜줄 수 있다. */
             //member.setTeamId(team.getId());       //기존방식. JPA를 안 쓸 경우.
-
-            /* 양방향 매핑 시, 연관관계의 주인에 값을 입력해야 한다. */
             member.setTeam(team);                   //단방향 연관관계 설정, 참조 저장
-            team.getMembers().add(member);          //양방향 연관관계 인데, 연관관계 주인으로 넣지 않는 경우임. 이땐 member 의 team이 null로 들어간다
 
             /* 캐싱없이 쿼리문이 나가는 걸 직접 보고 싶을 때 사용 */
             em.flush();                             //db에 쿼리보냄
@@ -52,13 +50,16 @@ public class Main04_Mapping {
             /* fetchType.LAZY : 해당객체를 정말 조회할 시점에 객체를 가져온다.
              * fetchType.EAGER : 연관 객체를 조회할 때 같이 JOIN으로 가져온다.
              * */
+
             /* 역방향 조회도 가능하다. */
             List<Member> members = findTeam.getMembers();
             for(Member member1 : members) {
                 System.out.println("member1 = " + member1);
             }
 
-            /* 새로운 팀 B를 만들고, 팀을 변경할 때는 그냥 set 사용 */
+            /* 연관관계 수정
+            * 새로운 팀 B를 만들고, 팀을 변경할 때는 그냥 set 사용
+            * */
             Team teamB = new Team();
             teamB.setName("TeamB");
             em.persist(teamB);
@@ -66,6 +67,7 @@ public class Main04_Mapping {
 
             tx.commit();
         } catch (Exception e) {
+            e.printStackTrace();
             tx.rollback();
         } finally {
             em.close();
@@ -73,6 +75,5 @@ public class Main04_Mapping {
 
         System.out.println("hello");
         emf.close();                                    //웹프로젝트를 아예 내릴 때
-
     }
 }

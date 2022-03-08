@@ -29,6 +29,7 @@ public class Main03_Column_Mapping {
 
             em.persist(member);
 
+            tx.commit();
         } catch (Exception e) {
             tx.rollback();
         } finally {

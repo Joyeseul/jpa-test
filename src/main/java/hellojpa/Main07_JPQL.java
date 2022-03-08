@@ -38,7 +38,7 @@ public class Main07_JPQL {
 
             /* Fetch Join
             * 만일 Lazy Loading 사용 한다면, memb.getTeam() 을 할 때마다 로딩을 해와야 함. N + 1 문제가 발생한다.
-            * fetch로 이 문제를 해결할 수 있다.
+            * fetch 로 이 문제를 해결할 수 있다.
             * */
             String jpqlFetch = "select m from Member m join fetch m.team";
             List<Member> members = em.createQuery(jpqlFetch, Member.class).getResultList();
